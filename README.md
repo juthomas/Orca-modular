@@ -22,6 +22,7 @@ If you wish to use Orca inside of [Electron](https://electronjs.org/), follow th
 git clone https://github.com/hundredrabbits/Orca.git
 cd Orca/desktop/
 npm install
+./node_modules/.bin/electron-rebuild
 npm start
 ```
 
