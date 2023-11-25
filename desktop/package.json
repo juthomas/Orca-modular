@@ -25,10 +25,12 @@
   },
   "devDependencies": {
     "electron": "^8.5.3",
-    "electron-packager": "^15.1.0"
+    "electron-packager": "^15.1.0",
+    "electron-rebuild": "^3.2.9"
   },
   "dependencies": {
-    "node-osc": "^4.1.9"
+    "node-osc": "^4.1.9",
+    "spi-device": "^3.1.2"
   },
   "standard": {
     "globals": [
