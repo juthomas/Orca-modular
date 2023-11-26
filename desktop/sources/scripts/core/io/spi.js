@@ -65,21 +65,24 @@ function Spi(client) {
     });
 
     setInterval(async () => {
-		
-		for (let entry = 0; entry < 4; entry++)
-		{
-			const trigger = await this.getVoltageValue(entry * 4 + 0);
-			if (trigger > 1.0)
-			{
-				const glyph = client.orca.keyOf(parseInt(await this.getVoltageValue(entry * 4 + 1) * 3.6, 10));
-				const x = client.orca.keyOf(parseInt(await this.getVoltageValue(entry * 4 + 2) * 3.6, 10));
-				const y = client.orca.keyOf(parseInt(await this.getVoltageValue(entry * 4 + 3) * 3.6, 10));
-				console.log(`Trigger ${entry} "write:${glyph};${x};${y}"`);
-			}
-		}
-
-    }, 1000);
-
+      for (let entry = 0; entry < 4; entry++) {
+        const trigger = await this.getVoltageValue(entry * 4 + 0);
+        if (trigger > 1.0) {
+          const glyph = client.orca.keyOf(
+            parseInt((await this.getVoltageValue(entry * 4 + 1)) * 3.6, 10)
+          );
+          const x = client.orca.keyOf(
+            parseInt((await this.getVoltageValue(entry * 4 + 2)) * 3.6, 10)
+          );
+          const y = client.orca.keyOf(
+            parseInt((await this.getVoltageValue(entry * 4 + 3)) * 3.6, 10)
+          );
+          const msg = `write:${glyph};${x};${y}`;
+          console.log(`Trigger ${entry} ${msg}`);
+          client.commander.trigger(`${msg}`);
+        }
+      }
+    }, 1000); //Polling rate
   };
   this.clear = function () {
     // Fermer les connexions SPI
