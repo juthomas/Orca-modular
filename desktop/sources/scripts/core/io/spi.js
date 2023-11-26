@@ -40,7 +40,7 @@ function Spi(client) {
       // Send and receive SPI data
       device.transfer(message, (err, message) => {
         if (err) {
-          console.error("Erreur lors de la transmission SPI:", err);
+          console.warn("SPI", `Error transmitting :\n ${err}`);
           return reject(err);
         }
 
@@ -57,12 +57,10 @@ function Spi(client) {
     console.log("SPI", "Starting..");
 
     this.devices[0] = spi.open(0, 0, spiConfig, (err) => {
-      if (err)
-        console.warn('SPI', `Error opening device 0:\n ${err}`);
+      if (err) console.warn("SPI", `Error opening device 0:\n ${err}`);
     });
     this.devices[1] = spi.open(0, 1, spiConfig, (err) => {
-      if (err)
-        console.warn('SPI', `Error opening device 1:\n ${err}`);
+      if (err) console.warn("SPI", `Error opening device 1:\n ${err}`);
     });
 
     this.intervalId = setInterval(async () => {
@@ -79,7 +77,7 @@ function Spi(client) {
             parseInt((await this.getVoltageValue(entry * 4 + 3)) * 3.6, 10)
           );
           const msg = `write:${glyph};${x};${y}`;
-          console.log(`Trigger ${entry} ${msg}`);
+          console.log("SPI", `Trigger ${entry} ${msg}`);
           client.commander.trigger(`${msg}`);
         }
       }
@@ -94,8 +92,7 @@ function Spi(client) {
     // Close SPI connections
     Object.values(this.devices).forEach((device) => {
       device.close((err) => {
-        if (err)
-          console.warn('SPI', `Error when closing connection:\n ${err}`);
+        if (err) console.warn("SPI", `Error when closing connection:\n ${err}`);
       });
     });
   };
