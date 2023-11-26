@@ -65,13 +65,19 @@ function Spi(client) {
     });
 
     setInterval(async () => {
-      const voltage1 = await this.getVoltageValue(0);
-      const voltage2 = await this.getVoltageValue(10);
-      console.log(`Canal 1: ${voltage1.toFixed(2)}V`);
-      console.log(`Canal 2: ${voltage2.toFixed(2)}V`);
+      const trigger1 = await this.getVoltageValue(0);
+      const trigger2 = await this.getVoltageValue(10);
+      console.log(`Trigger 1: ${trigger1.toFixed(2)}V`);
+      console.log(`Trigger 2: ${trigger2.toFixed(2)}V`);
+	  const glyph = client.orca.keyOf((await this.getVoltageValue(1)));
+	  console.log(`Glyph 1 : ${glyph}`);
+	  //   if (trigger1 > 1.0)
+	//   {
+
+	//   }
+
     }, 1000);
 
-    // Configuration SPI
   };
   this.clear = function () {
     // Fermer les connexions SPI
