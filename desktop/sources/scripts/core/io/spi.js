@@ -2,6 +2,8 @@
 
 function Spi(client) {
   const spi = require("spi-device");
+
+  this.devices = {};
   const spiConfig = {
     mode: spi.MODE0, // Correspond à spi_config.mode=0
     speedHz: 1000000, // Correspond à spi_config.speed=1000000
@@ -11,70 +13,71 @@ function Spi(client) {
     chipSelectHigh: false,
   };
 
-  function getVoltageValue(channel) {
+  this.getVoltageValue = function (channel) {
     return new Promise((resolve, reject) => {
-      // Ouvrir le dispositif SPI
-      const device = spi.open(
-        channel < 8 ? 0 : 0,
-        channel < 8 ? 0 : 1,
-        spiConfig,
-        (err) => {
-          if (err) {
-            console.error("Erreur lors de l'ouverture du dispositif SPI:", err);
-            return reject(err);
-          }
+      // Vérifier si le dispositif pour le canal spécifié est ouvert
+      const device = this.devices[channel < 8 ? 0 : 1];
+      if (!device) {
+        return reject(
+          new Error("Dispositif SPI non initialisé pour le canal " + channel)
+        );
+      }
 
-          // Préparer les buffers de transmission et de réception
-          const txBuffer = Buffer.from([0x01, (0x08 + channel) << 4, 0x00]);
-          const rxBuffer = Buffer.alloc(3);
+      // Préparer les buffers de transmission et de réception
+      const txBuffer = Buffer.from([0x01, (0x08 + channel) << 4, 0x00]);
+      const rxBuffer = Buffer.alloc(3);
 
-          const message = [
-            {
-              sendBuffer: txBuffer,
-              receiveBuffer: rxBuffer,
-              byteLength: 3,
-              speedHz: spiConfig.speedHz,
-            },
-          ];
+      const message = [
+        {
+          sendBuffer: txBuffer,
+          receiveBuffer: rxBuffer,
+          byteLength: 3,
+          speedHz: spiConfig.speedHz,
+        },
+      ];
 
-          // Envoyer et recevoir les données SPI
-          device.transfer(message, (err, message) => {
-            if (err) {
-              console.error("Erreur lors de la transmission SPI:", err);
-              return reject(err);
-            }
-
-            // Calculer la valeur de tension
-            const rawValue = ((rxBuffer[1] & 0x03) << 8) | rxBuffer[2];
-            const voltageValue = (rawValue / 1023.0) * 9.9;
-
-            // Fermer le dispositif SPI
-            device.close((err) => {
-              if (err)
-                console.error(
-                  "Erreur lors de la fermeture du dispositif SPI:",
-                  err
-                );
-            });
-
-            resolve(voltageValue);
-          });
+      // Envoyer et recevoir les données SPI
+      device.transfer(message, (err, message) => {
+        if (err) {
+          console.error("Erreur lors de la transmission SPI:", err);
+          return reject(err);
         }
-      );
+
+        // Calculer la valeur de tension
+        const rawValue = ((rxBuffer[1] & 0x03) << 8) | rxBuffer[2];
+        const voltageValue = (rawValue / 1023.0) * 9.9;
+
+        resolve(voltageValue);
+      });
     });
-  }
+  };
 
   this.start = function () {
     console.log("SPI", "Starting..");
 
+    this.devices[0] = spi.open(0, 0, spiConfig, (err) => {
+      if (err)
+        console.error("Erreur lors de l'ouverture du dispositif SPI:", err);
+    });
+    this.devices[1] = spi.open(0, 1, spiConfig, (err) => {
+      if (err)
+        console.error("Erreur lors de l'ouverture du dispositif SPI:", err);
+    });
+
     setInterval(async () => {
-      const voltage = await getVoltageValue(0);
+      const voltage = await this.getVoltageValue(0);
       console.log(`Canal ${0}: ${voltage.toFixed(2)}V`);
     }, 1000);
 
     // Configuration SPI
   };
   this.clear = function () {
-    // this.stack = []
+    // Fermer les connexions SPI
+    Object.values(this.devices).forEach((device) => {
+      device.close((err) => {
+        if (err)
+          console.error("Erreur lors de la fermeture du dispositif SPI:", err);
+      });
+    });
   };
 }
