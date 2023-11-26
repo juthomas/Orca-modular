@@ -65,16 +65,18 @@ function Spi(client) {
     });
 
     setInterval(async () => {
-      const trigger1 = await this.getVoltageValue(0);
-      const trigger2 = await this.getVoltageValue(10);
-      console.log(`Trigger 1: ${trigger1.toFixed(2)}V`);
-      console.log(`Trigger 2: ${trigger2.toFixed(2)}V`);
-	  const glyph = client.orca.keyOf(parseInt(await this.getVoltageValue(1) * 3.6, 10));
-	  console.log(`Glyph 1 : ${glyph}`);
-	  //   if (trigger1 > 1.0)
-	//   {
-
-	//   }
+		
+		for (let entry = 0; entry < 4; entry++)
+		{
+			const trigger = await this.getVoltageValue(entry * 4 + 0);
+			if (trigger > 1.0)
+			{
+				const glyph = client.orca.keyOf(parseInt(await this.getVoltageValue(entry * 4 + 1) * 3.6, 10));
+				const x = client.orca.keyOf(parseInt(await this.getVoltageValue(entry * 4 + 2) * 3.6, 10));
+				const y = client.orca.keyOf(parseInt(await this.getVoltageValue(entry * 4 + 3) * 3.6, 10));
+				console.log(`Trigger ${entry} "write:${glyph};${x};${y}"`);
+			}
+		}
 
     }, 1000);
 
