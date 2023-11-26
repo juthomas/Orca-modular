@@ -69,7 +69,7 @@ function Spi(client) {
       const trigger2 = await this.getVoltageValue(10);
       console.log(`Trigger 1: ${trigger1.toFixed(2)}V`);
       console.log(`Trigger 2: ${trigger2.toFixed(2)}V`);
-	  const glyph = client.orca.keyOf(parseInt(await this.getVoltageValue(1) * 36, 10));
+	  const glyph = client.orca.keyOf(parseInt(await this.getVoltageValue(1) * 3.6, 10));
 	  console.log(`Glyph 1 : ${glyph}`);
 	  //   if (trigger1 > 1.0)
 	//   {
