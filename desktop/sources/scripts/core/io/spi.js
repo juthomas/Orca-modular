@@ -2,8 +2,7 @@
 
 function Spi(client) {
   const spi = require("spi-device");
-  this.start -
-    function () {
+  this.start = function () {
       console.log("SPI", "Starting..");
     };
   this.clear = function () {
