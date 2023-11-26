@@ -22,6 +22,7 @@ function IO (client) {
     this.mono.start()
     this.udp.start()
     this.osc.start()
+    this.spi.start()
     this.clear()
   }
 
