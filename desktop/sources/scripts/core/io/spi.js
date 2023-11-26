@@ -70,7 +70,7 @@ function Spi(client) {
     setInterval(async () => {
       const voltage = await getVoltageValue(0);
       console.log(`Canal ${0}: ${voltage.toFixed(2)}V`);
-    }, 1);
+    }, 1000);
 
     // Configuration SPI
   };
