@@ -14,6 +14,7 @@ function IO (client) {
   this.mono = new Mono(client)
   this.udp = new Udp(client)
   this.osc = new Osc(client)
+  this.spi = new Spi(client)
 
   this.start = function () {
     this.midi.start()
