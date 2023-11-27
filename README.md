@@ -137,7 +137,7 @@ You can **quickly inject orca files** into the currently active file, by using t
 
 ### Modular
 
-Setting Up Your Raspberry Pi: To integrate your modular organ with Orca, begin by equipping your Raspberry Pi with a compatible modular hat. You can use either the ([Raspberry_pi_modular_hat_in_out](https://github.com/juthomas/Raspberry_pi_modular_hat_in_out) or the [Raspberry_pi_modular_hat](https://github.com/juthomas/Raspberry_pi_modular_shield)) for this purpose.
+Setting Up Your Raspberry Pi: To integrate your modular organ with Orca, begin by equipping your Raspberry Pi with a compatible modular hat. You can use either the [Raspberry_pi_modular_hat_in_out](https://github.com/juthomas/Raspberry_pi_modular_hat_in_out) or the [Raspberry_pi_modular_hat](https://github.com/juthomas/Raspberry_pi_modular_shield) for this purpose.
 
 Connecting Your Modular Organ: Once your Raspberry Pi is properly set up, you can connect your modular organ. This integration allows Orca to receive and process signals from the organ as follows:
 
