@@ -156,7 +156,8 @@ Connecting Your Modular Organ: Once your Raspberry Pi is properly set up, you ca
 
 **Voltage to Value Conversion**:
 
-For Glyph/X Position/Y Position inputs, a 0V signal translates to a value of `0`, and a 10V signal corresponds to a value of `z` (base36 encoding).
+- For Glyph/X Position/Y Position inputs, a 0V signal translates to a value of `0`, and a 10V signal corresponds to a value of `z` (base36 encoding).
+
 This setup allows you to seamlessly integrate your modular organ's outputs into Orca, providing a dynamic and interactive musical experience.
 
 
