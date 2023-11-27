@@ -1,4 +1,8 @@
-# ORCΛ
+# ORCA MODULAR
+
+Modified version of orca that supports modular organ inputs (with the use of a modular hat)
+
+## ORCΛ
 
 <img src="https://raw.githubusercontent.com/hundredrabbits/100r.co/master/media/content/characters/orca.hello.png" width="300"/>
 
@@ -130,6 +134,31 @@ You can **quickly inject orca files** into the currently active file, by using t
 | UDP Input  | OSC Input  | UDP Output | OSC Output |
 | ---------- | ---------- | ---------- | -----------|
 | 49160      | None       | 49161      | 49162
+
+### Modular
+
+Setting Up Your Raspberry Pi: To integrate your modular organ with Orca, begin by equipping your Raspberry Pi with a compatible modular hat. You can use either the ([Raspberry_pi_modular_hat_in_out](https://github.com/juthomas/Raspberry_pi_modular_hat_in_out) or the [Raspberry_pi_modular_hat](https://github.com/juthomas/Raspberry_pi_modular_shield)) for this purpose.
+
+Connecting Your Modular Organ: Once your Raspberry Pi is properly set up, you can connect your modular organ. This integration allows Orca to receive and process signals from the organ as follows:
+
+
+| Line | Trigger  | Glyph    | X Position | Y Position |
+| ---- | -------- | -------- | ---------- | ---------- |
+| 1    | Input 0  | Input 1  | Input 2    | Input 3    | 
+| 2    | Input 4  | Input 5  | Input 6    | Input 7    |
+| 3    | Input 8  | Input 9  | Input 10   | Input 11   |
+| 4    | Input 12 | Input 13 | Input 14   | Input 15   |
+
+**Signal Mapping**:
+
+- **Trigger**: Connect these to the organ's trigger signals.
+- **Glyph/X Position/Y Position**: These should be connected to the organ's CV (Control Voltage) signals.
+
+**Voltage to Value Conversion**:
+
+For Glyph/X Position/Y Position inputs, a 0V signal translates to a value of `0`, and a 10V signal corresponds to a value of `z` (base36 encoding).
+This setup allows you to seamlessly integrate your modular organ's outputs into Orca, providing a dynamic and interactive musical experience.
+
 
 ### Commands
 
