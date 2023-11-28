@@ -3,6 +3,29 @@
 # Define the user's home directory and username
 USER_HOME="$HOME"
 
+# Check if SPI is activated and activate it
+if lsmod | grep -q spi_; then
+    echo "SPI already activated"
+else
+    echo "SPI activation..."
+    # Activate SPI
+    sudo raspi-config nonint do_spi 0
+
+    # Reload core configurations
+    sudo modprobe spi-bcm2835
+
+    echo "SPI activated"
+fi
+
+# Check again if SPI is activated
+# Vérifier à nouveau si le SPI est activé
+if lsmod | grep -q spi_; then
+    echo "SPI operational"
+else
+    echo "SPI activation problem"
+fi
+
+
 # Prepare sources
 cd "$USER_HOME/Documents" || exit
 sudo apt-get update
