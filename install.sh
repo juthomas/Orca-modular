@@ -28,7 +28,7 @@ fi
 cd "$USER_HOME/Documents" || exit
 sudo apt-get update
 sudo apt-get install -y npm
-git clone https://github.com/juthomas/Orca-raspi.git
+git clone https://github.com/juthomas/Orca-modular.git
 cd "$USER_HOME/Documents/Orca-raspi/desktop" || exit
 
 # Set Wallpaper
