@@ -24,7 +24,6 @@ else
     echo "SPI activation problem"
 fi
 
-
 # Prepare sources
 cd "$USER_HOME/Documents" || exit
 sudo apt-get update
@@ -38,6 +37,9 @@ pcmanfm --wallpaper-mode=screen
 
 # Install
 npm install
+
+# Recompile spi-device module for electron compatibility
+./node_modules/.bin/electron-rebuild
 
 # Create autostart on Raspi
 echo "[Desktop Entry]
