@@ -14,7 +14,7 @@ rm -f $USER_HOME/Desktop/orca.desktop
 rm -f $USER_HOME/Desktop/orcaUpdater.desktop
 
 # Remove the cloned repository and its contents
-rm -rf $USER_HOME/Documents/Orca-raspi
+rm -rf $USER_HOME/Documents/Orca-modular
 
 # Remove npm if it was not previously installed
 # Caution: This might remove dependencies for other applications
