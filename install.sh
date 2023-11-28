@@ -18,7 +18,6 @@ else
 fi
 
 # Check again if SPI is activated
-# Vérifier à nouveau si le SPI est activé
 if lsmod | grep -q spi_; then
     echo "SPI operational"
 else
